@@ -6,7 +6,11 @@ from .serializers import InputSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
+from .dna_bot.dnabot_app import dnabot
+
 from .models import Input
+
+import os
 
 # Create your views here.
 
@@ -24,7 +28,15 @@ class InputView(viewsets.ModelViewSet):
             parts_linkers_csv=input_data["parts_linkers_csv"])
 
         new_input.save()
-
+        print(new_input)
         serializer = InputSerializer(new_input)
+        print(serializer.data['construct_csv'])
+        print(serializer.data['parts_linkers_csv'])
+
+        half_file_path_of_construct = serializer.data['construct_csv']
+        half_file_path_of_parts = serializer.data['parts_linkers_csv']
+
+        print(os.path.abspath(half_file_path_of_construct))
+        print(os.path.abspath(half_file_path_of_parts))
+
         return Response(serializer.data)
-        
