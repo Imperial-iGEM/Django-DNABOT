@@ -1,10 +1,10 @@
-from django.urls import path
-from django_dnabot_app import views
-from rest_framework.urlpatterns import format_suffix_patterns
+from django.urls import include, path
+from rest_framework import routers
+from . import views
+
+router = routers.DefaultRouter()
+router.register('Input', views.InputView)
 
 urlpatterns = [
-    path('Inputs/', views.InputList.as_view()),
-    path('Inputs/<int:pk>/', views.InputDetail.as_view()),
+    path('', include(router.urls))
 ]
-
-urlpatterns = format_suffix_patterns(urlpatterns)
