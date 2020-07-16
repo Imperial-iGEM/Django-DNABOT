@@ -124,26 +124,32 @@ def dnabot(ethanol_well_for_stage_2,
     print('Writing files...')
 
     # Write OT2 scripts
-    generate_ot2_script(CLIP_FNAME, os.path.join(
+    out_full_path_1 = generate_ot2_script(CLIP_FNAME, os.path.join(
         template_dir_path, CLIP_TEMP_FNAME), clips_dict=clips_dict)
-    generate_ot2_script(MAGBEAD_FNAME, os.path.join(
+    out_full_path_2 = generate_ot2_script(MAGBEAD_FNAME, os.path.join(
         template_dir_path, MAGBEAD_TEMP_FNAME),
         sample_number=magbead_sample_number,
         # THIS IS FOR THE ETHANOL TROUGH WELL IN STEP 2
         #ethanol_well=dnabotinst.etoh_well)
         ethanol_well=ethanol_well_for_stage_2)
 
-    generate_ot2_script(F_ASSEMBLY_FNAME, os.path.join(
+    out_full_path_3 = generate_ot2_script(F_ASSEMBLY_FNAME, os.path.join(
         template_dir_path, F_ASSEMBLY_TEMP_FNAME),
         final_assembly_dict=final_assembly_dict,
         tiprack_num=final_assembly_tipracks)
-    generate_ot2_script(TRANS_SPOT_FNAME, os.path.join(
+    out_full_path_4 = generate_ot2_script(TRANS_SPOT_FNAME, os.path.join(
         template_dir_path, TRANS_SPOT_TEMP_FNAME),
         spotting_tuples=spotting_tuples,
         #Deep well plate for Soc media during
         #soc_well="A{}".format(dnabotinst.soc_column))
         #previously the information about the location of the 
         soc_well="A1")
+
+    all_my_output_paths = []
+    all_my_output_paths.append(out_full_path_1)
+    all_my_output_paths.append(out_full_path_2)
+    all_my_output_paths.append(out_full_path_3)
+    all_my_output_paths.append(out_full_path_4)
 
     # Write non-OT2 scripts
     if 'metainformation' in os.listdir():
@@ -167,6 +173,8 @@ def dnabot(ethanol_well_for_stage_2,
         f.write('\n')
         f.write('SOC column: {}'.format(deep_well_plate_stage_4))
     print('BOT-2 generator successfully completed!')
+
+    return all_my_output_paths
 
 
 def generate_constructs_list(path):
@@ -431,6 +439,7 @@ def generate_ot2_script(ot2_script_path, template_path, **kwargs):
     """
     print("output location of ot2_script_path:{}".format(ot2_script_path))
     print(os.path.realpath(ot2_script_path))
+    this_object_output_path = os.path.realpath(ot2_script_path)
 
     #current_path = os.getcwd()
     #remove_example = os.path.split("my_examples")
@@ -459,6 +468,7 @@ def generate_ot2_script(ot2_script_path, template_path, **kwargs):
             for index, line in enumerate(rf):
                 if index >= function_start - 1:
                     wf.write(line)
+    return this_object_output_path
 
 
 def generate_master_mix_df(clip_number):
