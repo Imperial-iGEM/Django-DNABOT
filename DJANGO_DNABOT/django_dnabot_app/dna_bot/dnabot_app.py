@@ -152,6 +152,7 @@ def dnabot(ethanol_well_for_stage_2,
     all_my_output_paths.append(out_full_path_4)
 
     # Write non-OT2 scripts
+    os.chdir(generator_dir)
     if 'metainformation' in os.listdir():
         pass
     else:
@@ -173,6 +174,7 @@ def dnabot(ethanol_well_for_stage_2,
         f.write('\n')
         f.write('SOC column: {}'.format(deep_well_plate_stage_4))
     print('BOT-2 generator successfully completed!')
+    os.chdir(generator_dir)
 
     return all_my_output_paths
 
