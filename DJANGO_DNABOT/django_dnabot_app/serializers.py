@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User, Group
+from django_dnabot_app.models import Input
 from rest_framework import serializers
 
 class InputSerializer(serializers.Serializer):

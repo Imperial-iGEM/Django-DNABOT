@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_dnabot_app'
+    'django_dnabot_app',
 ]
 
 MIDDLEWARE = [
