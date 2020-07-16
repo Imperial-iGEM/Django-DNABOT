@@ -87,9 +87,10 @@ def dnabot(ethanol_well_for_stage_2,
     #root = tk.Tk()
     #sources_paths = gui.UserDefinedPaths(root, 'Sources csv files',
     #                                     multiple_files=True)
-    if len(output_sources_paths) > len(SOURCE_DECK_POS):
-        raise ValueError(
-            'Number of source plates exceeds deck positions.')
+    
+    #if len(output_sources_paths) > len(SOURCE_DECK_POS):
+    #    raise ValueError(
+    #        'Number of source plates exceeds deck positions.')
 
 
     # HERE YOU CAN SPECIFY THE PATH NAME AND IT WORKS 
@@ -106,6 +107,7 @@ def dnabot(ethanol_well_for_stage_2,
     print('Processing input csv files...')
     constructs_list = generate_constructs_list(input_construct_path)
     clips_df = generate_clips_df(constructs_list)
+    print(output_sources_paths)
     sources_dict = generate_sources_dict(output_sources_paths)
 
     # calculate OT2 script variables
@@ -255,14 +257,14 @@ def generate_clips_df(constructs_list):
         if index == 0:
             mag_wells = []
             for x in range(number):
-                mag_wells.append(mplates.final_well(x + 1 + 48))
+                mag_wells.append(final_well(x + 1 + 48))
             clips_df.at[index, 'mag_well'] = tuple(mag_wells)
         else:
             mag_wells = []
             for x in range(number):
                 well_count = clips_df.loc[
                     :index - 1, 'number'].sum() + x + 1 + 48
-                mag_wells.append(mplates.final_well(well_count))
+                mag_wells.append(final_well(well_count))
             clips_df.at[index, 'mag_well'] = tuple(mag_wells)
     return clips_df
 
@@ -279,6 +281,7 @@ def generate_sources_dict(paths):
     """
     sources_dict = {}
     for deck_index, path in enumerate(paths):
+        print(path)
         with open(path, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             for index, source in enumerate(csv_reader):
@@ -363,7 +366,7 @@ def generate_final_assembly_dict(constructs_list, clips_df):
                                        FINAL_ASSEMBLIES_PER_CLIP)]
             clips_count[clip_num] = clips_count[clip_num] + 1
             construct_well_list.append(clip_well)
-        final_assembly_dict[mplates.final_well(
+        final_assembly_dict[final_well(
             construct_index + 1)] = construct_well_list
     return final_assembly_dict
 
@@ -400,7 +403,7 @@ def generate_spotting_tuples(constructs_list, spotting_vols_dict):
 
     """
     # Calculate wells and volumes
-    wells = [mplates.final_well(x + 1) for x in range(len(constructs_list))]
+    wells = [final_well(x + 1) for x in range(len(constructs_list))]
     vols = [SPOTTING_VOLS_DICT[len(construct_df.index)]
             for construct_df in constructs_list]
 

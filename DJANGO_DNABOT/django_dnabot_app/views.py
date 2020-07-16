@@ -35,8 +35,16 @@ class InputView(viewsets.ModelViewSet):
 
         half_file_path_of_construct = serializer.data['construct_csv']
         half_file_path_of_parts = serializer.data['parts_linkers_csv']
+        ethanol2 = serializer.data['ethanol_stage2']
+        deep4 = serializer.data['deep_well_stage4']
 
-        print(os.path.abspath(half_file_path_of_construct))
-        print(os.path.abspath(half_file_path_of_parts))
+        full_construct_path = os.path.abspath(half_file_path_of_construct)
+        full_parts_path = os.path.abspath(half_file_path_of_parts)
 
+        full_parts_paths = []
+        full_parts_paths.append(full_parts_path)
+
+        dnabot(ethanol2,deep4,full_construct_path,full_parts_paths)
+
+        /Users/Benedict/Documents/iGEM/The_Django_Dnabot/Django-DNABOT/DJANGO_DNABOT/DJANGO_DNABOT/template_ot2_scripts
         return Response(serializer.data)
