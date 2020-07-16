@@ -46,5 +46,4 @@ class InputView(viewsets.ModelViewSet):
 
         dnabot(ethanol2,deep4,full_construct_path,full_parts_paths)
 
-        /Users/Benedict/Documents/iGEM/The_Django_Dnabot/Django-DNABOT/DJANGO_DNABOT/DJANGO_DNABOT/template_ot2_scripts
         return Response(serializer.data)
