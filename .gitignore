@@ -106,3 +106,12 @@ GitHub.sublime-settings
 
 # Mac #
 .DS_Store
+metainformation/
+
+files/input/constructs/
+
+files/input/parts_linkers/
+
+files/input/parts_linkes/
+
+*.sqlite3
