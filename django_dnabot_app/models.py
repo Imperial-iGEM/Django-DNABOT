@@ -8,7 +8,7 @@ class Input(models.Model):
     ethanol_stage2 = models.CharField(max_length=100)
     deep_well_stage4 = models.CharField(max_length=100)
     construct_csv = models.FileField(upload_to="./files/input/constructs", blank=False)
-    parts_linkers_csv = models.FileField(upload_to="./files/input/parts_linkes", blank=False)
+    parts_linkers_csv = models.FileField(upload_to="./files/input/parts_linkers", blank=False)
     python_output_1 = models.FileField()
     python_output_2 = models.FileField()
     python_output_3 = models.FileField()
